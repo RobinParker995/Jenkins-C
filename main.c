@@ -12,5 +12,7 @@ int main()
 
     printf("This is Jenkins Templete for the agent \n");
 
+    free(name);
+
     return 0;
 }

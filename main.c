@@ -1,11 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 int main()
 {
     char* name = malloc(30);
 
-    name = "Robin Parker";
+    strcpy(name, "Robin Parker");
 
     printf("I am %s \n", name);
 

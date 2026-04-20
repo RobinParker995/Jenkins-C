@@ -2,7 +2,9 @@
 
 int main()
 {
-    printf("I am Robin Parker \n");
+    char* name = "Robin Parker";
+
+    printf("I am %s \n", name);
 
     return 0;
 }

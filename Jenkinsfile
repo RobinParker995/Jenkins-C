@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        node {
-            label 'jenkins-agent-goes-here'
-        }
+        label 'docker-agent-c'
     }
 
     triggers {
@@ -12,27 +10,44 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
+                echo 'Building..'
                 sh '''
-                echo "doing build stuff.."
+                    ls -l
+                    gcc main.c -o main
                 '''
             }
         }
+
         stage('Test') {
             steps {
-                echo "Testing.."
+                echo 'Testing..'
                 sh '''
-                echo "doing test stuff.."
+                    ./main
                 '''
             }
         }
+
         stage('Deliver') {
             steps {
-                echo 'Deliver....'
+                echo 'Delivering..'
                 sh '''
-                echo "doing delivery stuff.."
+                    mkdir -p output/
+                    cp main output/
                 '''
+                archiveArtifacts artifacts: 'output/main', fingerprint: true
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+        always {
+            cleanWs()
         }
     }
 }
